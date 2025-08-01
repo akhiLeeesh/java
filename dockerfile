@@ -1,23 +1,13 @@
-# Stage 1: Base builder (optional, can be useful for installing tools or future needs)
+# ---- Stage 1: Build the WAR ----
 FROM maven:3.8.4-openjdk-17 AS builder
 WORKDIR /app
 COPY . .
+RUN mvn clean package
 
-# [Optional] You can build here if you have a pom.xml and need dependencies.
-# RUN mvn clean package
-
-# Stage 2: Use Tomcat to serve JSP app
+# ---- Stage 2: Run with Tomcat ----
 FROM tomcat:9.0
-
-# Clean default webapps
 RUN rm -rf /usr/local/tomcat/webapps/*
-
-# Copy your JSP and related files directly to ROOT
-COPY --from=builder /app /usr/local/tomcat/webapps/ROOT/
-
-# Expose Tomcat's default port
+COPY --from=builder /app/target/*.war /usr/local/tomcat/webapps/ROOT.war
 EXPOSE 8080
-
-# Start Tomcat server
 CMD ["catalina.sh", "run"]
 
