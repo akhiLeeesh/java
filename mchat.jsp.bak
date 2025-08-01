@@ -1,0 +1,50 @@
+<%
+String title="Chat";
+%>
+
+<%@ include file="fheader.jsp"%>
+<h1>
+Chat
+</h1>
+<%@ page  import="java.sql.*" import="databaseconnection.*" import="details.*" %>
+
+<hr>
+<h4>
+<table align="center" id="tab">
+<tr><th>Students Chat 
+<%
+String demail=(String)session.getAttribute("femail");
+Connection con1=databasecon.getconnection();
+Statement st = con1.createStatement();
+Statement st2 = con1.createStatement();
+ResultSet rs2=null;
+	try{
+	ResultSet rs=st.executeQuery(" select distinct(user_), name_ from msgs where chatof like '%"+demail+"%'  and user_!='"+demail+"' ");
+	while(rs.next()){
+
+%>
+<tr><td><br><br>
+
+<a href="#" onclick="window.open('mchatbot.jsp?email=<%=rs.getString("user_")%>', 'newwindow', 'width=650, height=650'); return false;"><%=rs.getString("name_")%>| <%=rs.getString("user_")%></a> 
+<%
+	}
+
+	
+	
+
+	
+	}
+	catch(Exception e)
+	{
+		System.out.println(e);
+
+	}
+	
+
+%>	
+</table><br><br>
+</h3>
+Click Email to chat..
+
+
+<%@ include file="ffooter.jsp"%>

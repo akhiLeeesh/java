@@ -1,0 +1,37 @@
+
+<%@ include file="uheader.jsp"%>
+<%@ page  import="java.sql.*" import="databaseconnection.*" import="details.*"  %>
+
+
+
+<%
+try{
+Connection con = databasecon.getconnection();
+Statement st=con.createStatement();
+Statement st2=con.createStatement();
+String sql="select * from campus";
+//System.out.println(sql);
+ResultSet rs=st.executeQuery(sql);
+ResultSet rs2=null;
+int cc=1;
+%>
+<h3>Placements</i></h2><br>
+
+<table align="" id="tab" width="100%">
+<tr><th>Sno<tH>Company<th>Position<th>Location<th>No. of positions<th>View Description
+<%
+while(rs.next()){
+%>
+<tr><td><%=cc++%>&nbsp;&nbsp;&nbsp;<td><%=rs.getString(2)%>&nbsp;&nbsp;&nbsp;&nbsp;<td><%=rs.getString(3)%><td><%=rs.getString(4)%>&nbsp;&nbsp;&nbsp;&nbsp;<td><%=rs.getString(5)%><td>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="#" onclick="window.open('desc2.jsp?id=<%=rs.getString(1)%>', 'newwindow', 'width=650, height=550'); return false;"> <strong>Description</a></td>
+<%
+}
+
+
+}
+catch(Exception e){
+System.out.println("11="+e);
+}
+%>
+</table>
+<%@ include file="ufooter.jsp"%>

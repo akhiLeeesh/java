@@ -1,0 +1,52 @@
+package details;
+import databaseconnection.*;
+import java.sql.*;
+
+
+public class InsertChatBot2 
+{
+
+public static void main(String data,String name,String user,String user2){ 
+		
+try{
+	Connection con = databasecon.getconnection();
+	PreparedStatement ps=con.prepareStatement("insert into msgs(msg,user_,name_,time_,chatof,status) values(?,?,?,?,?,?)");
+	ps.setString(1,data);
+	ps.setString(2,user);
+	ps.setString(3,name);
+	ps.setString(4,DateDemo.getTime());
+	ps.setString(5,user+user2);
+	ps.setString(6,"new");
+
+	ps.executeUpdate();
+	}
+	catch(Exception e){
+		System.out.println(e);
+	}
+	
+	
+}public static void main2(String data,String user,String user2, String name){ 
+		
+try{
+	Connection con = databasecon.getconnection();
+	PreparedStatement ps=con.prepareStatement("insert into msgs(msg,user_,name,time_,chatof,status) values(?,?,?,?,?,?)");
+	ps.setString(1,data);
+	ps.setString(2,user2);
+		ps.setString(3,name);
+	ps.setString(4,DateDemo.getTime());
+	ps.setString(5,user+user2);
+	ps.setString(6,"new");
+
+	ps.executeUpdate();
+	}
+	catch(Exception e){
+		System.out.println(e);
+	}
+	
+	
+}
+	public static void main(String[] args) 
+	{
+		System.out.println("Hello World!");
+	}
+}
